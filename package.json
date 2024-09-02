@@ -1,0 +1,30 @@
+{
+  "name": "wp-translation-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Afshin Talebi",
+  "license": "MIT",
+  "description": "a tool to generate WP translation file",
+  "dependencies": {
+    "0g": "^0.4.2",
+    "express": "^4.18.2",
+    "gettext-parser": "^2.0.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.4",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afshintalebi/wp-translation-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/afshintalebi/wp-translation-generator/issues"
+  },
+  "homepage": "https://github.com/afshintalebi/wp-translation-generator#readme"
+}

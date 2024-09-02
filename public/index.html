@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Excel to PO/MO Converter</title>
+  </head>
+  <body>
+    <h1>Excel to PO/MO Converter</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <label for="file">Upload Excel File:</label>
+      <input type="file" id="file" name="file" accept=".xlsx" required />
+      <br /><br />
+      <button type="submit">Convert</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const formData = new FormData();
+          formData.append("file", document.getElementById("file").files[0]);
+
+          fetch("/upload", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              let files = "";
+              if (
+                typeof data["files"] !== "undefined" &&
+                Array.isArray(data["files"])
+              ) {
+                data.files.forEach(({ poFile, moFile }, index) => {
+                  files += `
+                      <li>
+                        ${index > 0 ? "<hr/>" : ""}
+                        PO File: <strong>output/${poFile}</strong>
+                      </li>
+                      <li>MO File: <strong>output/${moFile}</strong></li>`;
+                });
+              }
+              document.getElementById("result").innerHTML = `<ul>${files}</ul>`;
+            })
+            .catch((error) => {
+              document.getElementById(
+                "result"
+              ).innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+        });
+    </script>
+  </body>
+</html>
